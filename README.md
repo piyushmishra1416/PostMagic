@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Social Media Post Generator
 
-## Getting Started
+This project uses Next.js, Google Generative AI, and Google Sheets API to generate and store social media posts based on user prompts.
 
-First, run the development server:
+## Folder Structure and Code Walkthrough
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Root Directory
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **README.md**: This file, providing an overview of the project.
+- **next.config.js**: Configuration file for Next.js.
+- **package.json**: Lists project dependencies and scripts.
+- **tsconfig.json**: TypeScript configuration file.
+- **.env.local**: Environment variables for local development (ensure this file is added to `.gitignore`).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### `/app`
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **/app/api**
+  - **/generate-post/route.ts**: Handles the API endpoint for generating social media posts using Google Generative AI and storing them in Google Sheets.
+  - **/fetch-posts/route.ts**: Handles the API endpoint for fetching stored social media posts from Google Sheets.
 
-## Learn More
+- **/page.tsx**: Main frontend page component which allows users to input prompts, generate posts, and display previously generated posts.
 
-To learn more about Next.js, take a look at the following resources:
+### Detailed Code Walkthrough
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### `app/api/generate-post/route.ts`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Description**: This endpoint handles POST requests to generate a social media post based on user input and stores the generated post in a Google Spreadsheet.
+- **Key Functions**:
+  - Parses the user prompt from the request body.
+  - Initializes the Google Generative AI client.
+  - Generates content based on the user prompt.
+  - Stores the generated post along with the prompt and timestamp in Google Sheets.
 
-## Deploy on Vercel
+#### `app/api/fetch-posts/route.ts`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Description**: This endpoint handles GET requests to fetch all previously generated social media posts from a Google Spreadsheet.
+- **Key Functions**:
+  - Initializes the Google Sheets client.
+  - Fetches the posts from the specified range in the spreadsheet.
+  - Returns the posts in JSON format.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### `app/page.tsx`
+
+- **Description**: The main frontend component that provides the user interface.
+- **Key Features**:
+  - Input form for users to enter prompts.
+  - Button to trigger post generation.
+  - Displays the generated post.
+  - Fetches and displays a list of previously generated posts from the backend.
+
+
+### Running the Project
+
+1. **Install Dependencies**: npm install
+
+2. **Run the Development Server**: npm run dev
+
+
+3. **Access the Application**:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Note
+
+- Ensure your Google Cloud project has the Sheets API enabled.
+- The service account JSON file must have the necessary permissions to access and edit the specified Google Spreadsheet.
+
