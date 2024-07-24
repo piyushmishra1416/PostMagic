@@ -2,6 +2,9 @@
 
 This project uses Next.js, Google Generative AI, and Google Sheets API to generate and store social media posts based on user prompts.
 
+#### Sheets Link: 
+https://docs.google.com/spreadsheets/d/1euBrH1wwsIZBb_0aqbfu1MABn0f1bbjgQ7WpmJxXqbM/edit?usp=sharing
+
 ## Folder Structure and Code Walkthrough
 
 ### Root Directory
