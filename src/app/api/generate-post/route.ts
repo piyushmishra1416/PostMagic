@@ -4,7 +4,32 @@ import { google } from 'googleapis';
 import path from 'path';
 import fs from 'fs';
 
-const credentials = JSON.parse(fs.readFileSync(process.env.GOOGLE_CREDENTIALS as string, 'utf-8'));
+const {
+  GOOGLE_TYPE,
+  GOOGLE_PROJECT_ID,
+  GOOGLE_PRIVATE_KEY,
+  GOOGLE_CLIENT_EMAIL,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_AUTH_URI,
+  GOOGLE_TOKEN_URI,
+  GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
+  GOOGLE_CLIENT_X509_CERT_URL,
+  SPREADSHEET_ID
+} = process.env;
+
+
+const credentials = {
+  type: GOOGLE_TYPE,
+  project_id: GOOGLE_PROJECT_ID,
+  private_key_id: process.env.GOOGLE_PRIVATE_KEY_ID,
+  private_key: GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+  client_email: GOOGLE_CLIENT_EMAIL,
+  client_id: GOOGLE_CLIENT_ID,
+  auth_uri: GOOGLE_AUTH_URI,
+  token_uri: GOOGLE_TOKEN_URI,
+  auth_provider_x509_cert_url: GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
+  client_x509_cert_url: GOOGLE_CLIENT_X509_CERT_URL,
+};
 
 const auth = new google.auth.JWT(
    credentials.client_email,
